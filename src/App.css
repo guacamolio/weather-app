@@ -102,33 +102,6 @@ body {
   text-transform: capitalize;
 }
 
-/* min – max bar with a marker for the current temperature */
-.range {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 24px;
-  font-weight: 500;
-}
-.bar {
-  position: relative;
-  flex: 1;
-  height: 6px;
-  background: linear-gradient(90deg, #8fd0ff, #ffd27a);
-  border-radius: 999px;
-}
-.marker {
-  position: absolute;
-  top: 50%;
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25);
-  transform: translate(-50%, -50%);
-}
-.range-label { margin-top: 6px; font-size: 0.9rem; opacity: 0.85; }
-
 /* ---------- details: one panel, rows divided by hairlines ---------- */
 .details {
   padding: 8px 22px;
@@ -149,9 +122,6 @@ body {
 dt { font-weight: 300; font-size: 1.05rem; }
 dd { font-weight: 500; font-size: 1.2rem; }
 
-.wind { display: flex; align-items: center; gap: 8px; }
-.arrow { display: inline-block; font-size: 1.3rem; transition: transform 0.4s ease; }
-
 @media (prefers-reduced-motion: reduce) {
-  .app, .arrow { transition: none; }
+  .app { transition: none; }
 }

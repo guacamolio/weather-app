@@ -58,14 +58,6 @@ export default function App() {
   const w = data?.weather?.[0];
   const theme = w ? themeFor(w.main, w.icon) : "clouds";
 
-  let rangePct = 50;
-  if (data && data.main.temp_max > data.main.temp_min) {
-    rangePct =
-      ((data.main.temp - data.main.temp_min) /
-        (data.main.temp_max - data.main.temp_min)) *
-      100;
-  }
-
   return (
     <div className="app" data-theme={theme}>
       <main className="shell">
@@ -98,15 +90,6 @@ export default function App() {
                 />
               </div>
               <p className="desc">{w.description}</p>
-
-              <div className="range" aria-label="Dienas temperatūras diapazons">
-                <span>{round(data.main.temp_min)}°</span>
-                <div className="bar">
-                  <div className="marker" style={{ left: `${rangePct}%` }} />
-                </div>
-                <span>{round(data.main.temp_max)}°</span>
-              </div>
-              <p className="range-label">Minimums un maksimums</p>
             </section>
 
             <section className="details">
@@ -129,15 +112,8 @@ export default function App() {
                 </div>
                 <div>
                   <dt>Vējš</dt>
-                  <dd className="wind">
+                  <dd>
                     {data.wind.speed.toFixed(1)} m/s {compass(data.wind.deg ?? 0)}
-                    <span
-                      className="arrow"
-                      style={{ transform: `rotate(${(data.wind.deg ?? 0) + 180}deg)` }}
-                      aria-hidden="true"
-                    >
-                      ↑
-                    </span>
                   </dd>
                 </div>
               </dl>
