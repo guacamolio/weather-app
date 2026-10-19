@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,800&display=swap");
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  color: #fff;
+}
+
+/* ---------- sky themes: the background follows the weather ---------- */
+.app {
+  --from: #4a5868;
+  --to: #6f7e8f;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 32px 20px;
+  background: linear-gradient(170deg, var(--from), var(--to));
+  transition: background 0.6s ease;
+}
+.app[data-theme="clear"]  { --from: #1b66c9; --to: #62b3f5; }
+.app[data-theme="clouds"] { --from: #435062; --to: #6b7a8c; }
+.app[data-theme="rain"]   { --from: #1f3249; --to: #3d5c7b; }
+.app[data-theme="snow"]   { --from: #4a6481; --to: #7d98b6; }
+.app[data-theme="storm"]  { --from: #231f38; --to: #4a4366; }
+.app[data-theme="mist"]   { --from: #4f5b65; --to: #7a8892; }
+.app[data-theme="night"]  { --from: #0b1126; --to: #28365f; }
+
+.shell {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ---------- search ---------- */
+.search { display: flex; gap: 8px; }
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 18px;
+  font: inherit;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+}
+.search input::placeholder { color: rgba(255, 255, 255, 0.8); }
+
+.search button {
+  padding: 12px 20px;
+  font: inherit;
+  font-weight: 500;
+  color: #12202f;
+  background: #fff;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.search input:focus-visible,
+.search button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.status { font-size: 1.1rem; }
+.status.error {
+  padding: 14px 18px;
+  background: rgba(8, 16, 28, 0.4);
+  border-radius: 14px;
+}
+
+/* ---------- hero: the big temperature is the memorable thing ---------- */
+.city { font-size: 1.5rem; font-weight: 500; }
+
+.now {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.temp {
+  font-size: clamp(6rem, 28vw, 9.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.icon {
+  width: 128px;
+  height: 128px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
+}
+
+.desc {
+  margin-top: 4px;
+  font-size: 1.35rem;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+
+/* min – max bar with a marker for the current temperature */
+.range {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  font-weight: 500;
+}
+.bar {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  background: linear-gradient(90deg, #8fd0ff, #ffd27a);
+  border-radius: 999px;
+}
+.marker {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, -50%);
+}
+.range-label { margin-top: 6px; font-size: 0.9rem; opacity: 0.85; }
+
+/* ---------- details: one panel, rows divided by hairlines ---------- */
+.details {
+  padding: 8px 22px;
+  background: rgba(8, 16, 28, 0.32);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+}
+
+.details dl > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+.details dl > div:last-child { border-bottom: 0; }
+
+dt { font-weight: 300; font-size: 1.05rem; }
+dd { font-weight: 500; font-size: 1.2rem; }
+
+.wind { display: flex; align-items: center; gap: 8px; }
+.arrow { display: inline-block; font-size: 1.3rem; transition: transform 0.4s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .app, .arrow { transition: none; }
+}
