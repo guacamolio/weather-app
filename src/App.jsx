@@ -4,7 +4,6 @@ import "./App.css";
 
 const DEFAULT_CITY = "Riga,LV";
 
-// Pick a colour theme from the condition + day/night (icon ends with "d" or "n")
 function themeFor(main, icon) {
   if (icon?.endsWith("n") && (main === "Clear" || main === "Clouds")) return "night";
   switch (main) {
@@ -14,7 +13,7 @@ function themeFor(main, icon) {
     case "Drizzle": return "rain";
     case "Snow": return "snow";
     case "Thunderstorm": return "storm";
-    default: return "mist"; // Mist, Fog, Haze, Smoke...
+    default: return "mist"; 
   }
 }
 
@@ -32,8 +31,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Runs on first render = every time the page is loaded or refreshed,
-  // and again whenever `city` changes (after a search).
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
