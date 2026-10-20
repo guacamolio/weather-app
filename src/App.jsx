@@ -22,7 +22,13 @@ function compass(deg) {
   return dirs[Math.round(deg / 45) % 8];
 }
 
-const round = (n) => Math.round(n);
+const round = (number) => Math.round(number);
+
+function visibilityText(meters) {
+  if (meters == null) return "–";
+  if (meters >= 10000) return "10+ km";
+  return `${(meters / 1000).toFixed(1)} km`;
+}
 
 export default function App() {
   const [city, setCity] = useState(DEFAULT_CITY);
@@ -30,6 +36,7 @@ export default function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
 
   useEffect(() => {
     const controller = new AbortController();
@@ -46,14 +53,14 @@ export default function App() {
     return () => controller.abort();
   }, [city]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
     const value = query.trim();
     if (value) setCity(value);
   }
 
-  const w = data?.weather?.[0];
-  const theme = w ? themeFor(w.main, w.icon) : "clouds";
+  const condition = data?.weather?.[0];
+  const theme = condition ? themeFor(condition.main, condition.icon) : "clouds";
 
   return (
     <div className="app" data-theme={theme}>
@@ -62,7 +69,7 @@ export default function App() {
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(event) => setQuery(event.target.value)}
             placeholder="Meklēt pilsētu"
             aria-label="Pilsētas nosaukums"
           />
@@ -79,14 +86,20 @@ export default function App() {
                 {data.name}, {data.sys.country}
               </h1>
               <div className="now">
-                <span className="temp">{round(data.main.temp)}°</span>
+                <div>
+                  <span className="temp">{round(data.main.temp)}°</span>
+                  <p className="hl">
+                    <span>H:{round(data.main.temp_max)}</span>
+                    <span>L:{round(data.main.temp_min)}</span>
+                  </p>
+                </div>
                 <img
                   className="icon"
-                  src={`https://openweathermap.org/img/wn/${w.icon}@4x.png`}
-                  alt={w.description}
+                  src={`https://openweathermap.org/img/wn/${condition.icon}@4x.png`}
+                  alt={condition.description}
                 />
               </div>
-              <p className="desc">{w.description}</p>
+              <p className="desc">{condition.description}</p>
             </section>
 
             <section className="details">
@@ -105,12 +118,12 @@ export default function App() {
                 </div>
                 <div>
                   <dt>Redzamība</dt>
-                  <dd>{(data.visibility / 1000).toFixed(1)} km</dd>
+                  <dd>{visibilityText(data.visibility)}</dd>
                 </div>
                 <div>
                   <dt>Vējš</dt>
                   <dd>
-                    {data.wind.speed.toFixed(1)} m/s {compass(data.wind.deg ?? 0)}
+                    {round(data.wind.speed * 3.6)} km/h {compass(data.wind.deg ?? 0)}
                   </dd>
                 </div>
               </dl>

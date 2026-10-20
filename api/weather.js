@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
   const url =
     "https://api.openweathermap.org/data/2.5/weather" +
-    `?q=${encodeURIComponent(city)}&units=metric&lang=lv&appid=${key}`;
+    `?q=${encodeURIComponent(city)}&units=metric&lang=la&appid=${key}`;
 
   try {
     const upstream = await fetch(url);

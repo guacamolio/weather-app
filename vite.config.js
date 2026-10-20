@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => {
             const city = new URL(path, "http://x").searchParams.get("city") ?? "";
-            return `/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&lang=lv&appid=${env.WEATHER_KEY}`;
+            return `/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&lang=la&appid=${env.WEATHER_KEY}`;
           },
         },
       },
