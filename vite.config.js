@@ -26,12 +26,23 @@ export default defineConfig(({ mode }) => {
 
     server: {
       proxy: {
+        // Current weather
         "/api/weather": {
           target: "https://api.openweathermap.org",
           changeOrigin: true,
           rewrite: (path) => {
             const city = new URL(path, "http://x").searchParams.get("city") ?? "";
             return `/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&lang=la&appid=${env.WEATHER_KEY}`;
+          },
+        },
+
+        // WEATHER PREDICTION (forecast) - dev proxy
+        "/api/forecast": {
+          target: "https://api.openweathermap.org",
+          changeOrigin: true,
+          rewrite: (path) => {
+            const city = new URL(path, "http://x").searchParams.get("city") ?? "";
+            return `/data/2.5/forecast?q=${encodeURIComponent(city)}&units=metric&lang=la&appid=${env.WEATHER_KEY}`;
           },
         },
       },

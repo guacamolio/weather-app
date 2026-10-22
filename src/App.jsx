@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchWeather } from "./api/weather";
 import "./App.css";
+import Forecast from "./Forecast";
 
 const DEFAULT_CITY = "Riga,LV";
 
 function themeFor(main, icon) {
-  if (icon?.endsWith("n") && (main === "Clear" || main === "Clouds")) return "night";
+  if (icon?.endsWith("n") && (main === "Clear" || main === "Clouds")) return "night"; //formātu nosaka OpenWeatherMap API ikonas kods kas beidzas ar "d" (diena) vai "n" (nakts)
   switch (main) {
     case "Clear": return "clear";
     case "Clouds": return "clouds";
@@ -101,7 +102,9 @@ export default function App() {
               </div>
               <p className="desc">{condition.description}</p>
             </section>
-
+            <div>
+              <Forecast city={city} /> 
+            </div>
             <section className="details">
               <dl>
                 <div>
